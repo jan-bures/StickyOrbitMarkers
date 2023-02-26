@@ -5,7 +5,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>StickyOrbitMarkers</AssemblyName>
     <Description>This mod makes the orbit AP/PE and other markers stay expanded when using the maneuver tool.</Description>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
@@ -36,6 +36,7 @@
   </ItemGroup>
   
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy /y &quot;$(TargetPath)&quot; &quot;E:\SteamLibrary\steamapps\common\Kerbal Space Program 2\BepInEx\plugins&quot;" />
+    <Exec Command="xcopy /Y &quot;$(TargetPath)&quot; &quot;E:\SteamLibrary\steamapps\common\Kerbal Space Program 2\BepInEx\plugins\StickyOrbitMarkers\&quot;" />
+    <Exec Command="echo f | xcopy /Y &quot;$(SolutionDir)LICENSE.txt&quot; &quot;E:\SteamLibrary\steamapps\common\Kerbal Space Program 2\BepInEx\plugins\StickyOrbitMarkers\LICENSE&quot;" />
   </Target>
 </Project>
