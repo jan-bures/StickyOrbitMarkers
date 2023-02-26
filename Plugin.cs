@@ -1,17 +1,25 @@
-﻿using BepInEx;
-using HarmonyLib;
-using System.Reflection;
+﻿using HarmonyLib;
+using SpaceWarp.API.Mods;
 
 namespace StickyOrbitMarkers
 {
-    [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
-    public class Plugin: BaseUnityPlugin
+    static class PluginInfo
     {
-        private void Awake()
-        {
-            Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
+        public const string GUID = "StickyOrbitMarkers";
+        public const string NAME = "Sticky Orbit Markers";
+    }
 
-            Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
+    [MainMod]
+    public class Plugin: Mod
+    {
+        public override void Initialize()
+        {
+            base.Initialize();
+
+            var harmony = new Harmony(PluginInfo.GUID);
+            harmony.PatchAll();
+
+            Logger.Info($"Mod {PluginInfo.NAME} is initialized.");
         }
     }
 }

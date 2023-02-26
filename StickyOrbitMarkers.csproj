@@ -5,24 +5,24 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>StickyOrbitMarkers</AssemblyName>
     <Description>This mod makes the orbit AP/PE and other markers stay expanded when using the maneuver tool.</Description>
-    <Version>0.1.1</Version>
+    <Version>0.1.2</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
-    <PackageReference Include="BepInEx.Core" Version="5.*" />
-    <PackageReference Include="BepInEx.PluginInfoProps" Version="1.*" />
-  </ItemGroup>
   
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
   </ItemGroup>
   
   <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>..\SpaceWarp\bin-0.2.0\SpaceWarp\core\0Harmony.dll</HintPath>
+    </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\SteamLibrary\steamapps\common\Kerbal Space Program 2\KSP2_x64_Data\Managed\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SpaceWarp">
+      <HintPath>..\SpaceWarp\bin-0.2.0\SpaceWarp\core\SpaceWarp.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
       <HintPath>..\..\..\SteamLibrary\steamapps\common\Kerbal Space Program 2\KSP2_x64_Data\Managed\UnityEngine.dll</HintPath>
@@ -36,7 +36,6 @@
   </ItemGroup>
   
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /Y &quot;$(TargetPath)&quot; &quot;E:\SteamLibrary\steamapps\common\Kerbal Space Program 2\BepInEx\plugins\StickyOrbitMarkers\&quot;" />
-    <Exec Command="echo f | xcopy /Y &quot;$(SolutionDir)LICENSE.txt&quot; &quot;E:\SteamLibrary\steamapps\common\Kerbal Space Program 2\BepInEx\plugins\StickyOrbitMarkers\LICENSE&quot;" />
+    <Exec Command="xcopy /Y &quot;$(TargetPath)&quot; &quot;$(ProjectDir)dist\StickyOrbitMarkers\bin\&quot;&#xD;&#xA;xcopy /Y &quot;$(ProjectDir)LICENSE&quot; &quot;$(ProjectDir)dist\StickyOrbitMarkers\&quot;&#xD;&#xA;xcopy /Y &quot;$(ProjectDir)modinfo.json&quot; &quot;$(ProjectDir)dist\StickyOrbitMarkers\&quot;" />
   </Target>
 </Project>
