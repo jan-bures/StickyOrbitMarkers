@@ -4,7 +4,7 @@
     "name": "Sticky Orbit Markers",
     "description": "Makes your Ap/Pe markers stick when using the maneuver tool",
     "source": "https://github.com/jan-bures/StickyOrbitMarkers",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "dependencies": [],
     "ksp2_version": {
         "min": "0.1.0",
