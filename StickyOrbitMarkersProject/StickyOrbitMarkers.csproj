@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>StickyOrbitMarkers</AssemblyName>
+    <Description>This mod makes the orbit AP/PE and other markers stay expanded when using the maneuver tool.</Description>
+    <Version>0.2.0</Version>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>true</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="HarmonyX" Version="2.10.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="..\external_dlls\SpaceWarp.dll" />
+    <Reference Include="..\external_dlls\UnityEngine.dll" />
+    <Reference Include="..\external_dlls\UnityEngine.CoreModule.dll" />
+    <Reference Include="..\external_dlls\Assembly-CSharp.dll" />
+    <Reference Include="..\external_dlls\NewtonSoft.Json.dll" />
+    <Reference Include="..\external_dlls\NewtonSoft.Json.dll" />
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\external_dlls\UnityEngine.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /y &quot;$(TargetPath)&quot; &quot;$(ProjectDir)..\sticky_orbit_markers\bin\&quot;&#xD;&#xA;xcopy /y &quot;$(ProjectDir)..\LICENSE&quot; &quot;$(ProjectDir)..\sticky_orbit_markers\&quot;&#xD;&#xA;echo f | xcopy /y &quot;$(ProjectDir)..\README.md&quot; &quot;$(ProjectDir)..\sticky_orbit_markers\README.txt&quot;" />
+  </Target>
+</Project>

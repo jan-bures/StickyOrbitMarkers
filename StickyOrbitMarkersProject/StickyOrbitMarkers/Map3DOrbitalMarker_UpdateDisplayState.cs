@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using KSP.Map;
 using KSP.UI;
-using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -10,7 +10,9 @@ namespace StickyOrbitMarkers
     [HarmonyPatch(typeof(Map3DOrbitalMarker), "UpdateDisplayState")]
     public class Map3DOrbitalMarker_UpdateDisplayState
     {
-		public static bool Prefix(Map3DOrbitalMarker __instance)
+        private static float lastTime = 0.0f;
+
+        public static bool Prefix(Map3DOrbitalMarker __instance)
 		{
             var instanceRef = Traverse.Create(__instance);
             var staticRef = Traverse.Create<Map3DOrbitalMarker>();
@@ -28,7 +30,6 @@ namespace StickyOrbitMarkers
                     (x == instanceRef.Field("_collapsedObject").GetValue<Graphic>() || x == instanceRef.Field("_expandedObject").GetValue<Graphic>())
                 ) {
                     flag = true;
-                    break;
                 }
             }
             if (flag && !instanceRef.Field("_lockToCollapsed").GetValue<bool>()) {
@@ -37,7 +38,8 @@ namespace StickyOrbitMarkers
                     instanceRef.Field("_isHovered").SetValue(true);
                     staticRef.Field("_isAnyHovered").SetValue(true);
                 }
-                if (instanceRef.Field("_isHovered").GetValue<bool>() && Mouse.Right.WasPressedThisFrame()) {
+                if (instanceRef.Field("_isHovered").GetValue<bool>() && Mouse.Right.WasPressedThisFrame() && lastTime + 0.01f < Time.time ) {
+                    lastTime = Time.time;
                     instanceRef.Field("_isPinned").SetValue(!instanceRef.Field("_isPinned").GetValue<bool>());
                     return false;
                 }
